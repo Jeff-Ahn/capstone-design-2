@@ -1,0 +1,18 @@
+config:
+  target: 'https://dvgk35ila4.execute-api.ap-northeast-2.amazonaws.com/dev'
+  phases:
+    - duration: 10
+      arrivalRate: 60
+  defaults:
+    headers:
+      x-api-key: '{{ $processEnvironment.SERVICE_API_KEY }}'
+  payload:
+    path: 'stress-test.csv'
+    fields:
+      - 'value'
+scenarios:
+  - flow:
+      - post:
+          url: '/search'
+          json:
+            value: '{{ value }}'

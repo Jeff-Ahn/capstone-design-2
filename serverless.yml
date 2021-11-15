@@ -37,6 +37,7 @@ package:
     - '!yarn-lock.json'
     - '!*.sh'
     - '!readme.md'
+    - '!test/**'
 
 layers:
   CommonLayer:

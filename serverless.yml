@@ -1,76 +1,50 @@
 service: scam-v2
 frameworkVersion: '2'
 
+plugins:
+  - serverless-import-apigateway
+  - serverless-plugin-log-subscription
+  - serverless-offline
+
+custom:
+  # 기존 rest api-gateway 연결용 게이트웨이 명칭
+  importApiGateway:
+    name: ${self:service}-gateway-${sls:stage}
+  # DynamoDB 설정
+  database: ${file(serverless-config/${sls:stage}/database.yml)}
+
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs14.x
   lambdaHashingVersion: 20201221
+  stage: dev
+  region: ap-northeast-2
+  stackName: ${self:service}-${sls:stage}
+  logRetentionInDays: 90
+  environment:
+    NODE_PATH: './:/opt'
+    PROFILE: ${sls:stage}
+    SERVICE: ${self.service}
+    TZ: 'Asia/Seoul'
+    TABLE_NAME: ${self:custom.database.scamInquire.table}
 
- stage: dev
- region: north-east-2
-
-#  environment:
-#    variable1: value1
-
-# you can add packaging information here
-#package:
-#  patterns:
-#    - '!exclude-me.js'
-#    - '!exclude-me-dir/**'
-#    - include-me.js
-#    - include-me-dir/**
+package:
+  patterns:
+    - '!serverless-config/**'
+    - '!node_modules/**'
+    - '!package.json'
+    - '!yarn-lock.json'
+    - '!*.sh'
+    - '!readme.md'
 
 functions:
   search:
-    handler: functions/handler
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - httpApi:
-#          path: /users/create
-#          method: get
-#      - websocket: $connect
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-#      - alb:
-#          listenerArn: arn:aws:elasticloadbalancing:us-east-1:XXXXXX:listener/app/my-load-balancer/50dc6c495c0c9188/
-#          priority: 1
-#          conditions:
-#            host: example.com
-#            path: /hello
+    handler: functions/handler.main
+    description: ${self:service} function
+    layers:
 
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
-
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
+    events:
+      - http:
+          path: /search
+          method: post
+          private: true

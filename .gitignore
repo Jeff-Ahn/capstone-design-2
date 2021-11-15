@@ -1,2 +1,4 @@
 node_modules/*
 database.yml
+serverless-config/*
+.serverless/*

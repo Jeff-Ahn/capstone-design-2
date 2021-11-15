@@ -2,5 +2,10 @@
   "name": "scam-v2",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-import-apigateway": "^1.1.1",
+    "serverless-offline": "^8.2.0",
+    "serverless-plugin-log-subscription": "^2.0.1"
+  }
 }

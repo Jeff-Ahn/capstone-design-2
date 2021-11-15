@@ -5,7 +5,6 @@ const { ddb } = require('../../common/dynamodb');
 const searchApi = async (value) => {
   const startDate = dayjs().subtract(365, 'day').format('YYYY-MM-DD');
 
-  console.log('tablename', process.env.TABLE_NAME);
   try {
     const { Items } = await ddb.query({
       TableName: process.env.TABLE_NAME,
@@ -15,9 +14,11 @@ const searchApi = async (value) => {
       }),
       KeyConditionExpression: `pk = :pk AND sk >= :sk`,
     });
-    console.log('Items', Items);
-    return { statusCode: 200, body: JSON.stringify(Items.map(unmarshall)) };
+    const items = Items.map((item) => unmarshall(item));
+    console.log('items:', JSON.stringify(items));
+    return { statusCode: 200, body: JSON.stringify(items) };
   } catch (e) {
+    console.error(e);
     return { statusCode: 500, body: JSON.stringify(e) };
   }
 };

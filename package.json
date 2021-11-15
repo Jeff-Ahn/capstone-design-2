@@ -7,5 +7,11 @@
     "serverless-import-apigateway": "^1.1.1",
     "serverless-offline": "^8.2.0",
     "serverless-plugin-log-subscription": "^2.0.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.41.0",
+    "@aws-sdk/util-dynamodb": "^3.41.0",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.10.7"
   }
 }

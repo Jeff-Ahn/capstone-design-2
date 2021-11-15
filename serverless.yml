@@ -27,6 +27,7 @@ provider:
     SERVICE: ${self.service}
     TZ: 'Asia/Seoul'
     TABLE_NAME: ${self:custom.database.scamInquire.table}
+    HASH_KEY: ${self:custom.database.hmacSha256Key}
 
 package:
   patterns:
@@ -37,12 +38,27 @@ package:
     - '!*.sh'
     - '!readme.md'
 
+layers:
+  CommonLayer:
+    path: node_modules
+    name: ${self:service}-common-layer-${sls:stage}
+    description: ${self:service} common lambda nodejs layer
+    allowedAccounts:
+      - '*'
+    compatibleRuntimes:
+      - nodejs14.x
+
 functions:
   search:
     handler: functions/handler.main
     description: ${self:service} function
+    package:
+      patterns:
+        - functions/handler
+        - functions/search/**
+        - common/**
     layers:
-
+      - { Ref: CommonLayerLambdaLayer }
     events:
       - http:
           path: /search

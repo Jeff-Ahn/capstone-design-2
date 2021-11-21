@@ -34,7 +34,7 @@ package:
     - '!serverless-config/**'
     - '!node_modules/**'
     - '!package.json'
-    - '!yarn-lock.json'
+    - '!yarn.lock'
     - '!*.sh'
     - '!readme.md'
     - '!test/**'

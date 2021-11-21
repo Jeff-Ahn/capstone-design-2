@@ -2,7 +2,23 @@ const dayjs = require('dayjs');
 const { unmarshall, marshall } = require('@aws-sdk/util-dynamodb');
 const { ddb } = require('../../common/dynamodb');
 
-const searchApi = async (value) => {
+const increaseCallCount = async (type) => {
+  const result = await ddb.updateItem({
+    TableName: process.env.TABLE_NAME,
+    Key: marshall({
+      pk: `CALL_COUNT#${type}`,
+      sk: `CALL_DATE#${dayjs().format('YYYY-MM-DD')}`,
+    }),
+    UpdateExpression: 'ADD call_count :incr',
+    ExpressionAttributeValues: marshall({
+      ':incr': 1,
+    }),
+    ReturnValues: 'UPDATED_NEW',
+  });
+  console.log('result:', JSON.stringify(result));
+};
+
+const searchApi = async (type, value) => {
   const startDate = dayjs().subtract(365, 'day').format('YYYY-MM-DD');
 
   try {
@@ -14,6 +30,7 @@ const searchApi = async (value) => {
       }),
       KeyConditionExpression: `pk = :pk AND sk >= :sk`,
     });
+    await increaseCallCount(type);
     const items = Items.map((item) => unmarshall(item));
     console.log('items:', JSON.stringify(items));
     return { statusCode: 200, body: JSON.stringify(items) };

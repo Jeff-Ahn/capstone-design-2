@@ -7,6 +7,6 @@ module.exports.handler = (httpMethod, body, queryStringParameters) => {
     respose.body = JSON.stringify({ message: 'Method Not Allowed' });
     return respose;
   }
-  const { value } = JSON.parse(body);
-  return searchApi(value);
+  const { type, value } = JSON.parse(body);
+  return searchApi(type, value);
 };

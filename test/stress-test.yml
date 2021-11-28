@@ -1,7 +1,7 @@
 config:
   target: 'https://dvgk35ila4.execute-api.ap-northeast-2.amazonaws.com/dev'
   phases:
-    - duration: 10
+    - duration: 60
       arrivalRate: 60
   defaults:
     headers:
@@ -9,10 +9,12 @@ config:
   payload:
     path: 'stress-test.csv'
     fields:
+      - 'type'
       - 'value'
 scenarios:
   - flow:
       - post:
           url: '/search'
           json:
+            type: '{{ type }}'
             value: '{{ value }}'

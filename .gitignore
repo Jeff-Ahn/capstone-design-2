@@ -1,4 +1,26 @@
-node_modules/*
 database.yml
 serverless-config/*
 .serverless/*
+node_modules
+
+# dependencies
+admin-web/node_modules
+admin-web/.pnp
+admin-web.pnp.js
+
+# testing
+admin-web/coverage
+
+# production
+admin-web/build
+
+# misc
+admin-web/.DS_Store
+admin-web/.env.local
+admin-web/.env.development.local
+admin-web/.env.test.local
+admin-web/.env.production.local
+
+admin-web/npm-debug.log*
+admin-web/yarn-debug.log*
+admin-web/yarn-error.log*

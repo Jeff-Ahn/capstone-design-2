@@ -1,5 +1,6 @@
-const { addNewScamData } = require('./create');
 const { getScamDataByValue } = require('./read');
+const { addNewScamData } = require('./create');
+const { deleteScamDataByValue } = require('./delete');
 
 module.exports.handler = (httpMethod, body, queryStringParameters) => {
   const respose = { statusCode: 200, body: null };
@@ -15,6 +16,8 @@ module.exports.handler = (httpMethod, body, queryStringParameters) => {
     case 'PUT': {
     }
     case 'DELETE': {
+      const { value, monitoring_date } = queryStringParameters;
+      return deleteScamDataByValue(value, monitoring_date);
     }
     default:
       respose.statusCode = 405;

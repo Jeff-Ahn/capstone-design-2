@@ -38,6 +38,7 @@ package:
     - '!*.sh'
     - '!readme.md'
     - '!test/**'
+    - '!admin-web/**'
 
 layers:
   CommonLayer:
@@ -64,4 +65,31 @@ functions:
       - http:
           path: /search
           method: post
+          private: true
+  admin:
+    handler: functions/handler.main
+    description: ${self:service} function
+    package:
+      patterns:
+        - functions/handler
+        - functions/admin/**
+        - common/**
+    layers:
+      - { Ref: CommonLayerLambdaLayer }
+    events:
+      - http:
+          path: /admin
+          method: get
+          private: true
+      - http:
+          path: /admin
+          method: post
+          private: true
+      - http:
+          path: /admin
+          method: put
+          private: true
+      - http:
+          path: /admin
+          method: delete
           private: true

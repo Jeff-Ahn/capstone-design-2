@@ -1,9 +1,13 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import dotenv from 'dotenv';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css';
 
+dotenv.config();
+
+console.log('x-api-key:', process.env.REACT_APP_X_API_KEY);
 ReactDOM.render(
   <StrictMode>
     <App />

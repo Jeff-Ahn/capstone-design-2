@@ -2,6 +2,7 @@ database.yml
 serverless-config/*
 .serverless/*
 node_modules
+.env
 
 # dependencies
 admin-web/node_modules

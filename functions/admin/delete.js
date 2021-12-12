@@ -12,6 +12,10 @@ const deleteScamDataByValue = async (value, monitoring_date) => {
     });
     console.log('$metadata:', JSON.stringify($metadata));
     return {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
       statusCode: 200,
       body: JSON.stringify({ message: 'Successfully deleted data' }),
     };

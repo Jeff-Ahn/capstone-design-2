@@ -12,7 +12,14 @@ const getScamDataByValue = async (value) => {
     });
     const items = Items.map((item) => unmarshall(item));
     console.log('items:', JSON.stringify(items));
-    return { statusCode: 200, body: JSON.stringify(items) };
+    return {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
+      statusCode: 200,
+      body: JSON.stringify(items),
+    };
   } catch (e) {
     console.error(e);
     return { statusCode: 500, body: JSON.stringify(e) };

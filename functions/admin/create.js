@@ -15,6 +15,10 @@ const addNewScamData = async (type, value, report_path) => {
     });
     console.log('$metadata:', JSON.stringify($metadata));
     return {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
       statusCode: 200,
       body: JSON.stringify({ message: 'Successfully added new Scam data' }),
     };

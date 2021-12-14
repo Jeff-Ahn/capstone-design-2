@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Column from 'antd/lib/table/Column';
 import ColumnGroup from 'antd/lib/table/ColumnGroup';
 import { deleteScamData } from '../../lib/api';
-import useSearch from '../../hooks/useSearch';
 
 interface ResultType {
   pk: string;
@@ -43,7 +42,7 @@ function SearchResult({ results }: { results: ResultType[] }) {
   const handleDeleteScamData = async (value: string, date: string) => {
     const res = confirm('정말로 삭제하시겠습니까?');
     if (!res) return;
-    const { message } = await deleteScamData(value, date);
+    const { message } = await deleteScamData(encodeURIComponent(value), date);
     alert(message);
   };
 

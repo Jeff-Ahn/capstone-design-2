@@ -1,4 +1,5 @@
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
+import styled from 'styled-components';
 import Column from 'antd/lib/table/Column';
 import ColumnGroup from 'antd/lib/table/ColumnGroup';
 
@@ -31,18 +32,26 @@ function SearchResult({ results }: { results: ResultType[] }) {
     },
   );
 
+  const renderDelteBtn = (target: any) => {
+    return <Button onClick={() => console.log(target)}>Delete</Button>;
+  };
   return (
-    <Table dataSource={data}>
-      <Column title="Value" dataIndex="value" key="value" />
-      <Column title="Monitoring Date" dataIndex="date" key="date" />
-      <Column title="Type" dataIndex="type" key="type" />
-      <ColumnGroup title="Report Path">
-        <Column title="Cafe" dataIndex="manual_cafe" key="manual_cafe" />
-        <Column title="Cs" dataIndex="manual_cs" key="manual_cs" />
-        <Column title="App" dataIndex="manual_app" key="manual_app" />
-      </ColumnGroup>
-    </Table>
+    <Block>
+      <Table dataSource={data}>
+        <Column title="Value" dataIndex="value" key="value" />
+        <Column title="Monitoring Date" dataIndex="date" key="date" />
+        <Column title="Type" dataIndex="type" key="type" />
+        <ColumnGroup title="Report Path">
+          <Column title="Cafe" dataIndex="manual_cafe" key="manual_cafe" />
+          <Column title="Cs" dataIndex="manual_cs" key="manual_cs" />
+          <Column title="App" dataIndex="manual_app" key="manual_app" />
+        </ColumnGroup>
+        <Column title="" dataIndex="" key="x" render={renderDelteBtn} />
+      </Table>
+    </Block>
   );
 }
+
+const Block = styled.div``;
 
 export default SearchResult;

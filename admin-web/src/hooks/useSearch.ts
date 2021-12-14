@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { getScamData } from '../lib/api';
 
 const useSearch = () => {
@@ -10,6 +10,6 @@ const useSearch = () => {
   };
 
   return { result, onSearch };
-}
+};
 
 export default useSearch;

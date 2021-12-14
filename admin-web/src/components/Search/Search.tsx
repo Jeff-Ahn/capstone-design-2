@@ -32,11 +32,13 @@ function Search() {
 const Block = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const InputBlock = styled.div`
   display: flex;
   width: 100%;
+  margin-bottom: 40px;
   input {
     height: 3rem;
   }

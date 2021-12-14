@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react';
 import { Layout, Menu } from 'antd';
 import styled from 'styled-components';
 import Search from '../components/Search';
+import Register from '../components/Register';
 
 const { Header, Content, Footer } = Layout;
 
@@ -15,6 +16,7 @@ function MainPage(): ReactElement {
         setContent(<Search />);
         break;
       case '추가하기':
+        setContent(<Register />);
         break;
       case '통계':
         break;
@@ -38,20 +40,19 @@ function MainPage(): ReactElement {
           ))}
         </Menu>
       </Header>
-      <Content style={{ padding: '0 50px' }}>
-        <Block>{content}</Block>
-      </Content>
+      <StyledContent>{content}</StyledContent>
       <Footer style={{ textAlign: 'center' }}>
-        Ant Design ©2018 Created by Ant UED
+        AHU ©2021 Capstone Design 2 Project
       </Footer>
     </Layout>
   );
 }
 
-const Block = styled.div`
+const StyledContent = styled(Content)`
+  width: 100%;
+  padding: 40px 50px;
   display: flex;
   margin: 0 auto;
-  background-color: blue;
 `;
 
 export default MainPage;

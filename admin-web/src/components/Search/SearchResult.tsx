@@ -2,6 +2,8 @@ import { Button, Table } from 'antd';
 import styled from 'styled-components';
 import Column from 'antd/lib/table/Column';
 import ColumnGroup from 'antd/lib/table/ColumnGroup';
+import { deleteScamData } from '../../lib/api';
+import useSearch from '../../hooks/useSearch';
 
 interface ResultType {
   pk: string;
@@ -15,7 +17,6 @@ interface ResultType {
 }
 
 function SearchResult({ results }: { results: ResultType[] }) {
-  console.log('results', results);
   const data = results?.map(
     ({ pk, sk, type, report_path: { manual_cs, manual_cafe, manual_app } }) => {
       const value = pk.split('#')[1];
@@ -33,8 +34,19 @@ function SearchResult({ results }: { results: ResultType[] }) {
   );
 
   const renderDelteBtn = (target: any) => {
-    return <Button onClick={() => console.log(target)}>Delete</Button>;
+    const { value, date } = target;
+    return (
+      <Button onClick={() => handleDeleteScamData(value, date)}>Delete</Button>
+    );
   };
+
+  const handleDeleteScamData = async (value: string, date: string) => {
+    const res = confirm('정말로 삭제하시겠습니까?');
+    if (!res) return;
+    const { message } = await deleteScamData(value, date);
+    alert(message);
+  };
+
   return (
     <Block>
       <Table dataSource={data}>

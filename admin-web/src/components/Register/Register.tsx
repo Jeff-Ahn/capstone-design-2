@@ -21,6 +21,7 @@ function Register() {
     const { message } = await addNewScamData(type, value, report_path);
     alert(message);
   };
+
   return (
     <Block>
       <InputBlock>

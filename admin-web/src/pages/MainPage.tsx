@@ -6,7 +6,7 @@ import Register from '../components/Register';
 
 const { Header, Content, Footer } = Layout;
 
-const navs = ['조회하기', '추가하기', '통계'];
+const navs = ['조회하기', '추가하기'];
 
 function MainPage(): ReactElement {
   const [content, setContent] = useState(<Search />);
@@ -17,8 +17,6 @@ function MainPage(): ReactElement {
         break;
       case '추가하기':
         setContent(<Register />);
-        break;
-      case '통계':
         break;
       default:
         break;

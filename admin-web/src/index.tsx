@@ -7,7 +7,6 @@ import 'antd/dist/antd.css';
 
 dotenv.config();
 
-console.log('x-api-key:', process.env.REACT_APP_X_API_KEY);
 ReactDOM.render(
   <StrictMode>
     <App />

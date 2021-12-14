@@ -24,9 +24,8 @@ function MainPage(): ReactElement {
   };
 
   return (
-    <Layout className="layout">
+    <StyledLayout>
       <Header>
-        <div className="logo" />
         <Menu
           theme="dark"
           mode="horizontal"
@@ -42,9 +41,14 @@ function MainPage(): ReactElement {
       <Footer style={{ textAlign: 'center' }}>
         AHU ©2021 Capstone Design 2 Project
       </Footer>
-    </Layout>
+    </StyledLayout>
   );
 }
+
+const StyledLayout = styled(Layout)`
+  min-height: 100vh;
+  background: #f0f2f5;
+`;
 
 const StyledContent = styled(Content)`
   width: 100%;

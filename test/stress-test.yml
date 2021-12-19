@@ -5,7 +5,7 @@ config:
       arrivalRate: 60
   defaults:
     headers:
-      x-api-key: '{{ $processEnvironment.SERVICE_API_KEY }}'
+      x-api-key: 'YvcrvncAzN18X4iVrOhWp9HLg50KzH0S9QepX6cJ'
   payload:
     path: 'stress-test.csv'
     fields:
